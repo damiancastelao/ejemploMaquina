@@ -1,0 +1,8 @@
+package org.example
+
+sealed class CoffeeMachineState {
+    data class Idle(val timestamp: Long = System.currentTimeMillis()) : CoffeeMachineState()
+    object MakingCoffee : CoffeeMachineState()
+    data class ServingCoffee(val type: String) : CoffeeMachineState()
+    data class Error(val message: String) : CoffeeMachineState()
+}
