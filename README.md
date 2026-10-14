@@ -12,15 +12,19 @@ stateDiagram-v2
     Estado4 --> Estado1
 ```
 
+
 ## Diagrama Máquina
 
 ```mermaid
 stateDiagram-v2
     [*] --> Idle
-    Idle --> ServingCoffee: makeCoffee()
-    ServingCoffee --> [*]: clean()
-    Idle --> Idle: clean()
-    ServingCoffee --> ServingCoffee: makeCoffee()
-    Idle --> Error: error
-    Error --> [*]: clean()
-    ```
+    Idle --> MakingCoffee : gestorEstados(monedero > 0)
+    Idle --> Idle : gestorEstados(monedero <= 0)
+    MakingCoffee --> ServingCoffee : gestorEstados()
+    ServingCoffee --> Idle : gestorEstados()
+    Error --> Error : gestorEstados()
+    Idle --> Idle : clean()
+    MakingCoffee --> Idle : clean()
+    ServingCoffee --> Idle : clean()
+    Error --> Idle : clean()
+```

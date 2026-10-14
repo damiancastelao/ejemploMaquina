@@ -1,50 +1,31 @@
-# Maquina de estados
+# Máquina de estados
 
-Maquina de cafe, para tres tipos de cafe
+La máquina de café representa sus estados con `CoffeeMachineState`. Cada
+llamada a `gestorEstados(monedero)` realiza como máximo una transición:
 
-## Estados:
+- `Idle(timestamp)`: espera una moneda; `timestamp` se inicializa al entrar en
+  este estado.
+- `MakingCoffee`: está preparando el café.
+- `ServingCoffee(type)`: hay café servido; `type` indica el tipo de café.
+- `Error(message)`: la máquina está en error; `message` contiene el motivo.
 
-- Esperando: La maquina esta esperando a que el usuario seleccione un tipo de cafe.
-- Preparando: La maquina esta preparando el cafe seleccionado por el usuario.
-- Entregando: La maquina esta entregando el cafe preparado al usuario.
+`gestorEstados` solo inicia la preparación cuando `monedero > 0`. En el código
+actual, el café servido es `"Nescafé"` y no hay ninguna transición que asigne
+el estado `Error`; este estado permanece hasta que se limpia la máquina.
+`clean()` lleva la máquina a `Idle` desde cualquiera de los estados.
 
-## Transiciones:
-
-- Seleccionar tipo de cafe: Transicion de Esperando a Preparando.
-- Preparar cafe: Transicion de Preparando a Entregando.
-- Entregar cafe: Transicion de Entregando a Esperando.
-
-## Variables de las transiciones en Kotlin:
-
-Los estados se representan con una `sealed class` y cada transición con una
-instancia de `Transicion`, que guarda el estado de origen y el estado de destino:
-
-```kotlin
-sealed class Estado {
-    data object Esperando : Estado()
-    data object Preparando : Estado()
-    data object Entregando : Estado()
-}
-
-data class Transicion(
-    val origen: Estado,
-    val destino: Estado
-)
-
-val seleccionarTipoCafe: Transicion =
-    Transicion(Estado.Esperando, Estado.Preparando)
-val prepararCafe: Transicion =
-    Transicion(Estado.Preparando, Estado.Entregando)
-val entregarCafe: Transicion =
-    Transicion(Estado.Entregando, Estado.Esperando)
-```
-
-## Diagrama de estados:
+## Diagrama de estados
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Esperando
-    Esperando --> Preparando : Seleccionar tipo de cafe
-    Preparando --> Entregando : Preparar cafe
-    Entregando --> Esperando : Entregar cafe
-``` 
+    [*] --> Idle
+    Idle --> MakingCoffee : gestorEstados(monedero > 0)
+    Idle --> Idle : gestorEstados(monedero <= 0)
+    MakingCoffee --> ServingCoffee : gestorEstados()
+    ServingCoffee --> Idle : gestorEstados()
+    Error --> Error : gestorEstados()
+    Idle --> Idle : clean()
+    MakingCoffee --> Idle : clean()
+    ServingCoffee --> Idle : clean()
+    Error --> Idle : clean()
+```
