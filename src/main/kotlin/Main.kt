@@ -3,11 +3,6 @@ package org.example
 fun main() {
 
     println("---- Primera llamada ----")
-    CoffeeMachine.gestorEstados()
+    CoffeeMachine.gestorEstados(monedero = 0)
 
-    println("---- Segunda llamada ----")
-    CoffeeMachine.gestorEstados()
-
-    println("---- Tercera llamada ----")
-    CoffeeMachine.gestorEstados()
 }
