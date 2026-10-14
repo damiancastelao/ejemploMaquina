@@ -8,7 +8,7 @@ import org.example.CoffeeMachineState.*
 object CoffeeMachine {
     public var currentState: CoffeeMachineState = CoffeeMachineState.Idle()
 
-    fun gestorEstados(monedero: Int) {
+    fun gestorEstados(monedero: Int): CoffeeMachineState {
         println("Estado actual: $currentState")
 
         when (currentState) {
@@ -36,6 +36,7 @@ object CoffeeMachine {
                 println("Sigo en el estado IDLE")
             }
         }
+        return currentState
     }
 
     fun clean() {
