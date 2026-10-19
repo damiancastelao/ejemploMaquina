@@ -16,7 +16,7 @@ object CoffeeMachine {
 
         when (currentState) {
             is CoffeeMachineState.Idle -> {
-                (currentState as Idle).onEnter(monedero)
+                (currentState as Idle).onEnter()
             }
             is CoffeeMachineState.MakingCoffee -> {
                 (currentState as MakingCoffee).onEnter()

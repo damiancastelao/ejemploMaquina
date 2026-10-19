@@ -8,10 +8,10 @@ import org.example.CoffeeMachine.seleccion
  */
 sealed class CoffeeMachineState {
     object Idle : CoffeeMachineState() {
-        fun onEnter(monedero: Int) {
+        fun onEnter() {
             println("Entrando al estado Idle")
             Thread.sleep(2000)
-            if (CoffeeMachine.monedero >0) {
+            if (CoffeeMachine.monedero > 0) {
                 println("¡Monedero es mayor que cero! Me pongo a preparar cafe. Estado: $currentState")
                 // Simula un proceso de preparación
                 currentState = CoffeeMachineState.MakingCoffee(type = CoffeeMachine.seleccion)
