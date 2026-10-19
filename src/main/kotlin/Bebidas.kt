@@ -6,5 +6,6 @@ package org.example
 enum class Bebidas(val nombre: String, val precio: Double, unidades: Int = 10) {
     CAPUCCINO("Capuccino", 3.5),
     LATA("Lata", 2.0),
-    AMERICANO("Americano", 1.5)
+    AMERICANO("Americano", 1.5),
+    NOBEBIDA("No bebida", 0.0);
 }
