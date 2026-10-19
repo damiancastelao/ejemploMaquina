@@ -1,7 +1,6 @@
 package org.example
 
 import org.example.CoffeeMachine.currentState
-import org.example.CoffeeMachine.seleccion
 
 /**
  * Clase sellada que representa los diferentes estados de la máquina de café
@@ -14,7 +13,7 @@ sealed class CoffeeMachineState {
             if (CoffeeMachine.monedero > 0) {
                 println("¡Monedero es mayor que cero! Me pongo a preparar cafe. Estado: $currentState")
                 // Simula un proceso de preparación
-                currentState = CoffeeMachineState.MakingCoffee(type = CoffeeMachine.seleccion)
+                currentState = MakingCoffee(type = CoffeeMachine.seleccion)
             }
         }
         override fun toString(): String {
@@ -26,7 +25,7 @@ sealed class CoffeeMachineState {
             println("Entrando al estado MakingCoffee")
             type = CoffeeMachine.seleccion
             println("Preparando café de tipo: $type")
-            Thread.sleep(5000) // termino de preparar el café
+            Thread.sleep(500) // termino de preparar el café
         }
 
         override fun toString(): String {
@@ -37,7 +36,7 @@ sealed class CoffeeMachineState {
         fun onEnter() {
             type = CoffeeMachine.seleccion
             println("Entrando al estado ServingCoffee, sirviendo $type")
-            Thread.sleep(5000) // termino de preparar el café
+            Thread.sleep(500) // termino de preparar el café
             println("Ya hay café servido. Por favor, toma tu café.")
         }
 

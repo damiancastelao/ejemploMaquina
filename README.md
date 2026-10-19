@@ -1,12 +1,11 @@
 # Máquina de Estados... de Café
 
-## Funciones en los estados
+## Tests
 
-En esta rama vamos añadir una funcionalidad a los estados.+
+En esta rama vamos añadir los tests unitarios.
 
-### Función `onEnter()`
+Tendremos que revisar el código para que las funciones tengan valores devueltos, y así poder testearlas.
 
-Cuando la máquina llega a un estado ejecuta esta función, todos los estados tienen esta función
 ## Diagrama Máquina
 
 ```mermaid
