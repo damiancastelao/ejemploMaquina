@@ -1,18 +1,12 @@
 # Máquina de Estados... de Café
 
-## Diagrama ejercicio previo
+## Funciones en los estados
 
-```mermaid
-stateDiagram-v2
-    [*] --> Estado1
-    Estado1 --> Estado2: a=TRUE 
-    Estado2 --> Estado3: b=TRUE
-    Estado2 --> Estado4: b=False
-    Estado3 --> [*]
-    Estado4 --> Estado1
-```
+En esta rama vamos añadir una funcionalidad a los estados.+
 
+### Función `onEnter()`
 
+Cuando la máquina llega a un estado ejecuta esta función, todos los estados tienen esta función
 ## Diagrama Máquina
 
 ```mermaid

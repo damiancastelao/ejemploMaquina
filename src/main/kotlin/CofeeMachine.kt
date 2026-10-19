@@ -7,33 +7,35 @@ import org.example.CoffeeMachineState.*
  */
 object CoffeeMachine {
     public var currentState: CoffeeMachineState = CoffeeMachineState.Idle()
+    public var monedero: Int = 0
+    public var seleccion: Bebidas = Bebidas.CAPUCCINO
 
-    fun gestorEstados(monedero: Int): CoffeeMachineState {
+    fun gestorEstados(): CoffeeMachineState {
         println("Estado actual: $currentState")
 
         when (currentState) {
-            is CoffeeMachineState.Idle if monedero>0 -> {
-                println("Máquina en estado IDlE")
+            is CoffeeMachineState.Idle -> {
+                (currentState as Idle).onEnter()
                 Thread.sleep(2000)
-                // Simula un proceso de preparación
-                currentState = CoffeeMachineState.MakingCoffee
-                println("¡Monedero es mayor que cero! Me pongo a preparar cafe. Estado: $currentState")
+                if (monedero>0) {
+
+                    println("¡Monedero es mayor que cero! Me pongo a preparar cafe. Estado: $currentState")
+                    // Simula un proceso de preparación
+                    currentState = CoffeeMachineState.MakingCoffee(type = Bebidas.CAPUCCINO)
+                }
             }
             is CoffeeMachineState.MakingCoffee -> {
-                println("¡Estoy Haciendo cafe! Por favor, espera...")
-                Thread.sleep(2000) // termino de preparar el café
-                currentState = ServingCoffee("Nescafé")
+                (currentState as MakingCoffee).onEnter()
+
+                currentState = ServingCoffee(type = seleccion)
             }
             is CoffeeMachineState.ServingCoffee -> {
+                (currentState as ServingCoffee).onEnter()
                 println("Ya hay café servido. Por favor, toma tu café.")
                 currentState = Idle()
             }
             is CoffeeMachineState.Error -> {
                 println("La máquina tiene un error: ${(currentState as CoffeeMachineState.Error).message}")
-            }
-
-            is CoffeeMachineState.Idle -> {
-                println("Sigo en el estado IDLE")
             }
         }
         return currentState
